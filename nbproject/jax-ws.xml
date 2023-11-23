@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="ServicioHotel">
+      <implementation-class>servicioHotelWS.ServicioHotel</implementation-class>
+    </service>
+    <service name="ServicioLineaArea">
+      <implementation-class>servicioLineaAreaWS.ServicioLineaArea</implementation-class>
+    </service>
+    <service name="ServicioTarjetaCredito">
+      <implementation-class>servicioTarjetaWS.ServicioTarjetaCredito</implementation-class>
+    </service>
+    <service name="InicioSesion">
+      <implementation-class>servicioInicioSesion.InicioSesion</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
