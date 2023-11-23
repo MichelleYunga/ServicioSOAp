@@ -37,15 +37,24 @@ public class InicioSesion {
     }
 
     @WebMethod(operationName = "Regístrese")
-    public boolean registrese(@WebParam(name = "usuario") String usuario, @WebParam(name = "contraseña") String contraseña) {
+    public boolean registrese(@WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "cedula") String cedula,
+            @WebParam(name = "usuario") String usuario, @WebParam(name = "contraseña") String contra, @WebParam(name = "contraseña1") String contra1) {
         if (generar.existeUsuario(usuario)) {
             System.out.println("No se puede registrar, usuario ya existente");
             return false;
         }
+        if (!compararContraseñas(contra,contra1)) {
+            System.out.println("Las contraseñas no coinciden");
+            return false;
+        }
 
-        Cliente nuevoCliente = generar.generarClienteConID(usuario, contraseña);
+        Cliente nuevoCliente = generar.generarClienteConID(nombre, apellido, cedula, usuario, contra, contra1);
         System.out.println("Usuario creado exitosamente. : " + nuevoCliente.getUsuario());
         return true;
     }
 
+    //METRODO PARA VALIDAR LAS CONTRASEÑAS
+    private boolean compararContraseñas(String contraseña1, String contraseña2) {
+        return contraseña1.equals(contraseña2);
+    }
 }

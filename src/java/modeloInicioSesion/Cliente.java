@@ -10,23 +10,27 @@ package modeloInicioSesion;
  * @author enriq
  */
 public class Cliente {
-    
+
     private int idCliente;
+    private String nombre;
+    private String apellido;
+    private String cedula;
     private String usuario;
-    private String contrase;
+    private String contrasena;
+    private String  valContrasena;
 
-    public Cliente(String usuario, String contraseña) {
-        this.usuario = usuario;
-        this.contrase = contraseña;
-    }
-
-    public Cliente(int idCliente, String usuario, String contraseña) {
+    public Cliente(int idCliente, String nombre, String apellido, String cedula, String usuario, String contrasena, String valContrasena) {
         this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
         this.usuario = usuario;
-        this.contrase = contraseña;
+        this.contrasena = contrasena;
+        this.valContrasena = valContrasena;
     }
+
     
-    
+
     public Cliente() {
     }
 
@@ -38,13 +42,14 @@ public class Cliente {
         this.usuario = usuario;
     }
 
-    public String getContrase() {
-        return contrase;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContrase(String contraseña) {
-        this.contrase = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
+
 
     public int getIdCliente() {
         return idCliente;
@@ -53,7 +58,39 @@ public class Cliente {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getValContrasena() {
+        return valContrasena;
+    }
+
+    public void setValContrasena(String valContrasena) {
+        this.valContrasena = valContrasena;
+    }
     
     
-    
+
 }

@@ -37,11 +37,11 @@ public class GenerarUsuarioId {
    ///   
     
 
-    public Cliente generarClienteConID(String username, String password) {
+    public Cliente generarClienteConID(String nombre,String apellido,String cedula,String username, String password, String password1) {
         int nuevoID = idautoincremental;
         idautoincremental++;
 
-        Cliente cli = new Cliente(nuevoID, username, password);
+        Cliente cli = new Cliente(nuevoID,nombre,apellido,cedula, username, password,password1);
         clientes.add(cli);
 
         return cli;
@@ -69,7 +69,7 @@ public class GenerarUsuarioId {
     
      public Cliente buscarCliente(String usuario, String contraseña) {
         for (Cliente cliente : clientes) {
-            if (cliente.getUsuario().equals(usuario) && cliente.getContrase().equals(contraseña)) {
+            if (cliente.getUsuario().equals(usuario) && cliente.getContrasena().equals(contraseña)) {
                 return cliente;
             }
         }
