@@ -41,6 +41,7 @@ public class TarjetaCredito {
         this.fechaVencimiento = fechaVencimiento;
         this.codigoSeguridad = codigoSeguridad;
         this.saldoDisponible = saldoDisponible;
+        this.historialTransacciones = new ArrayList<>();
     }
 
    
@@ -119,6 +120,11 @@ public class TarjetaCredito {
         this.idCliente = idCliente;
     }
     
-    
+       public void agregarTransaccion(String descripcion, double monto) {
+        this.historialTransacciones.add(new Transaccion(descripcion, monto));
+    }
+    public List<Transaccion> getHistorialTransacciones() {
+        return this.historialTransacciones;
+    }
 
 }

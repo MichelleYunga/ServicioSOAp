@@ -7,11 +7,11 @@
     <service name="ServicioLineaArea">
       <implementation-class>servicioLineaAreaWS.ServicioLineaArea</implementation-class>
     </service>
-    <service name="ServicioTarjetaCredito">
-      <implementation-class>servicioTarjetaWS.ServicioTarjetaCredito</implementation-class>
-    </service>
     <service name="InicioSesion">
       <implementation-class>servicioInicioSesion.InicioSesion</implementation-class>
+    </service>
+    <service name="ServicioTarjetaCredito">
+      <implementation-class>servicioTarjetaWS.ServicioTarjetaCredito</implementation-class>
     </service>
   </services>
   <clients/>

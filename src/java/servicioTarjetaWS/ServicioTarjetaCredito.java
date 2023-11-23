@@ -107,6 +107,19 @@ public class ServicioTarjetaCredito {
 
     //METODO PARA REALIZAR TRANSACCIONES
    
+    private List<Transaccion> historialTransacciones;
+
+    
+    public void agregarTransaccion(String descripcion, double monto) {
+
+    Transaccion transaccion = new Transaccion(descripcion, monto);
+
+    if (historialTransacciones == null) {
+        historialTransacciones = new ArrayList<>();
+    }
+
+    historialTransacciones.add(transaccion);
+}
 
     //METODO PARA RETIRAR DINERO
     @WebMethod(operationName = "retirarDinero")
@@ -203,3 +216,4 @@ public class ServicioTarjetaCredito {
         return suma % 10 == 0;
     }
 }
+
