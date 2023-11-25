@@ -5,6 +5,8 @@
  */
 package ModeloTarjetaCredito;
 
+import java.util.Date;
+
 /**
  *
  * @author enriq
@@ -12,15 +14,14 @@ package ModeloTarjetaCredito;
 public class Transaccion {
     private String descripcion;
     private double monto;
+    private Date fecha;
 
-    public Transaccion(String descripcion, double monto) {
+    public Transaccion(String descripcion, double monto, Date fecha) {
         this.descripcion = descripcion;
         this.monto = monto;
+        this.fecha = fecha;
     }
 
-    
-
-   
 
     public String getDescripcion() {
         return descripcion;
@@ -29,4 +30,14 @@ public class Transaccion {
     public double getMonto() {
         return monto;
     }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 }

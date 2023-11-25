@@ -6,6 +6,7 @@
 package ModeloTarjetaCredito;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import modeloInicioSesion.GenerarUsuarioId;
 import modeloInicioSesion.Cliente;
@@ -120,9 +121,10 @@ public class TarjetaCredito {
         this.idCliente = idCliente;
     }
     
-       public void agregarTransaccion(String descripcion, double monto) {
-        this.historialTransacciones.add(new Transaccion(descripcion, monto));
+       public void agregarTransaccion(String descripcion, double monto, Date fecha) {
+        this.historialTransacciones.add(new Transaccion(descripcion, monto, fecha));
     }
+       
     public List<Transaccion> getHistorialTransacciones() {
         return this.historialTransacciones;
     }

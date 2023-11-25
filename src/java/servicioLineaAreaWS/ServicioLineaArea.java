@@ -26,13 +26,10 @@ public class ServicioLineaArea {
     /**
      * This is a sample web service operation
      */
-    
     //ARRAYS
     private List<LineaArea> lineasAereas;
     private List<HorarioVuelo> horarios;
-    
-    
-    
+
     @WebMethod(operationName = "RegistroHorario")
     public boolean RegistroHorario(@WebParam(name = "id") String idhorario, @WebParam(name = "fecha") Date fecha, @WebParam(name = "horaSalida") String horaSalida, @WebParam(name = "horaLLegada") String horaLlegada) {
         HorarioVuelo horav = new HorarioVuelo(idhorario, fecha, horaSalida, horaLlegada);
@@ -63,73 +60,69 @@ public class ServicioLineaArea {
         }
         return null;
     }
-    
+
     //BUSCAR VUELOS DISPONIBLES EN BASE A FECHA Y HORA
     @WebMethod(operationName = "BuscarVuelos")
-    public List<HorarioVuelo> buscarVuelosDisponibles( @WebParam(name = "fecha") Date fecha,@WebParam(name = "hora") String hora){
-        
+    public List<HorarioVuelo> buscarVuelosDisponibles(@WebParam(name = "fecha") Date fecha, @WebParam(name = "hora") String hora) {
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechaString = formatoFecha.format(fecha);
-        
-        if(!esFechaValida(fechaString) || !esHoravalida(hora)){
+
+        if (!esFechaValida(fechaString) || !esHoravalida(hora)) {
             return new ArrayList<>();
         }
-        
+
         Date fechaParametro = convertirfecha(fechaString);
-        
-        
-        
+
         List<HorarioVuelo> vuelosDisponibles = new ArrayList<>();
-        
-        for(HorarioVuelo vuelos : horarios){
+
+        for (HorarioVuelo vuelos : horarios) {
             if (vuelos.cocidenciaFechaHora(hora, hora)) {
                 vuelosDisponibles.add(vuelos);
             }
         }
-        
+
         return vuelosDisponibles;
-                               
+
     }
-    
-    @WebMethod (operationName = "CambiarVuelo")
+
+    @WebMethod(operationName = "CambiarVuelo")
     public boolean cambiarVuelo(@WebParam(name = "numeroVuelo") int idVuelo,
             @WebParam(name = "nuevaFecha") String nuevaFecha,
-            @WebParam(name = "nuevaHora") String nuevaHora){
-        
-        if(!esFechaValida(nuevaFecha) || !esHoravalida(nuevaHora)){
+            @WebParam(name = "nuevaHora") String nuevaHora) {
+
+        if (!esFechaValida(nuevaFecha) || !esHoravalida(nuevaHora)) {
             return false;
         }
-        
-        for(HorarioVuelo vuelo : horarios){
-            
-            if(vuelo.getIdHorario().equals(vuelo)){
-                
+
+        for (HorarioVuelo vuelo : horarios) {
+
+            if (vuelo.getIdHorario().equals(vuelo)) {
+
                 vuelo.setFecha(convertirfecha(nuevaFecha));
                 vuelo.setHoraSalida(nuevaFecha);
                 return true;
             }
         }
-        
+
         return false;
-        
+
     }
-    
-    @WebMethod (operationName = "AnularVuelo")
-    public Boolean anularVuelo(@WebParam(name = "numeroVuelo") String numeroVuelo){
-        
-        for(HorarioVuelo vuelo : horarios){
-            if(vuelo.getIdHorario().equals(numeroVuelo)){
+
+    @WebMethod(operationName = "AnularVuelo")
+    public Boolean anularVuelo(@WebParam(name = "numeroVuelo") String numeroVuelo) {
+
+        for (HorarioVuelo vuelo : horarios) {
+            if (vuelo.getIdHorario().equals(numeroVuelo)) {
                 horarios.remove(vuelo);
                 return true;
             }
         }
         return false;
     }
-    
-    
-    
+
     //VALIDACIONES
-    private boolean esFechaValida(String fecha){
+    private boolean esFechaValida(String fecha) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat.setLenient(false);
@@ -139,8 +132,8 @@ public class ServicioLineaArea {
             return false;
         }
     }
-    
-    private boolean esHoravalida(String hora){
+
+    private boolean esHoravalida(String hora) {
         try {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             timeFormat.setLenient(false);
@@ -150,8 +143,8 @@ public class ServicioLineaArea {
             return false;
         }
     }
-    
-    private Date convertirfecha(String fecha){
+
+    private Date convertirfecha(String fecha) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             return dateFormat.parse(fecha);
@@ -161,6 +154,5 @@ public class ServicioLineaArea {
             return null;
         }
     }
-
 
 }

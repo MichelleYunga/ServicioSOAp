@@ -32,13 +32,18 @@ public class ServicioTarjetaCredito {
      */
     private List<TarjetaCredito> tarjetasCredito;
     TarjetaCredito tar;
+    private List<Transaccion> historialTransacciones;
 
+    //METODO PARA EL REGISTRO DE LA TARJETA
     @WebMethod(operationName = "RegistroTarjeta")
     public boolean Registro(@WebParam(name = "numero") String numero,
             @WebParam(name = "titular") String titular,
             @WebParam(name = "fechaVencimiento") String fechaVencimiento,
             @WebParam(name = "codigoSeguridad") String codigoSeguridad,
             @WebParam(name = "saldoDisponible") float saldoDisponible) {
+        
+        
+         
         for (TarjetaCredito tarjeta : tarjetasCredito) {
             if (numero.equals(tarjeta.getNumero())) {
                 System.out.println("Ya existe esta tarjeta de credito");
@@ -52,6 +57,7 @@ public class ServicioTarjetaCredito {
         return true; // Registro de tarjeta exitoso
     }
 
+    //METODO PARA ACTUALIZAR LA TARJETA DE CREDITO
     @WebMethod(operationName = "ActualizarTarjeta")
     public boolean ActualizarTarjeta(@WebParam(name = "numero") String numero,
             @WebParam(name = "titular") String titular,
@@ -86,10 +92,11 @@ public class ServicioTarjetaCredito {
         for (TarjetaCredito tarjeta : tarjetasCredito) {
             if (tarjeta.getNumero().equals(numeroTarjeta) && tarjeta.getFechaVencimiento().equals(fechaVencimiento)) {
                 // Fecha de vencimiento válida
+                System.out.println("Fecha de vencimiento valida");
                 return true;
             }
         }
-
+        System.out.println("Fecha de vencimiento invalida o tarjeta no encontrada");
         // Fecha de vencimiento inválida o tarjeta no encontrada
         return false;
     }
@@ -106,20 +113,39 @@ public class ServicioTarjetaCredito {
     }
 
     //METODO PARA REALIZAR TRANSACCIONES
-   
-    private List<Transaccion> historialTransacciones;
+    @WebMethod
+    public boolean realizarTransaccion(@WebParam(name = "numeroTarjeta") String numeroTarjeta,
+            @WebParam(name = "monto") double monto,
+            @WebParam(name = "descripcion") String descripcion,
+            @WebParam(name = "fecha") Date fecha) {
 
-    
-    public void agregarTransaccion(String descripcion, double monto) {
-
-    Transaccion transaccion = new Transaccion(descripcion, monto);
-
-    if (historialTransacciones == null) {
-        historialTransacciones = new ArrayList<>();
+        if (validarTarjetaCredito(numeroTarjeta) && monto > 0) {
+            Transaccion transaccion = new Transaccion(descripcion, monto,fecha);
+            historialTransacciones.add(transaccion);
+            System.out.println("Su transferencia fue exitos");
+            // Retorna verdadero si la transacción fue exitosa
+            return true;
+        } else {
+            System.out.println("la transferencia fallo");
+            // Retorna falso si la transacción falló
+            return false;
+        }
     }
 
-    historialTransacciones.add(transaccion);
-}
+    //METODO PARA VER EL HISTORIAL DE LA TARJETA DE CREDITO
+    @WebMethod
+    public List<Transaccion> obtenerHistorialTarjeta(@WebParam(name = "numeroTarjeta") String numeroTarjeta) {
+        // Buscar la tarjeta de crédito en la lista de tarjetas
+        for (TarjetaCredito tarjeta : tarjetasCredito) {
+            if (tarjeta.getNumero().equals(numeroTarjeta)) {
+                return tarjeta.getHistorialTransacciones();
+            }
+        }
+        System.out.println("No se pudo encontrar el hitorial de la tarjeta");
+        // Si no se encuentra la tarjeta, devolver una lista vacía
+        return new ArrayList<>();
+    }
+    
 
     //METODO PARA RETIRAR DINERO
     @WebMethod(operationName = "retirarDinero")
@@ -147,8 +173,8 @@ public class ServicioTarjetaCredito {
         return false; // Tarjeta no encontrada
     }
 
-    //METODO PARA VER SI EL CLIENTE LEGITIMOO}
-    
+    //METODO PARA VER SI EL CLIENTE LEGITIMOO
+    //SE VERIFICA MEDIANTE EL ID    
     private boolean esClienteLegitimo(int idCliente) {
         GenerarUsuarioId generador = new GenerarUsuarioId();
         //Obetenemos la lista de clientes
@@ -161,18 +187,6 @@ public class ServicioTarjetaCredito {
             }
         }
         return false; // Cliente no encontrado
-    }
-
-    public boolean verificarCliente(@WebParam(name = "numero") String numeroTarjeta, @WebParam(name = "codigoSeguridad") String codigoSeguridad) {
-
-        for (TarjetaCredito tarjeta : tarjetasCredito) {
-            if (tarjeta.getNumero().equals(numeroTarjeta)) {
-                if (tarjeta.getCodigoSeguridad().equals(codigoSeguridad)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     //VALIDACIONES
@@ -216,4 +230,3 @@ public class ServicioTarjetaCredito {
         return suma % 10 == 0;
     }
 }
-
