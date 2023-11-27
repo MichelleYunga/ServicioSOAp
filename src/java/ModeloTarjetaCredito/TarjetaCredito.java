@@ -27,14 +27,7 @@ public class TarjetaCredito {
     private float saldoDisponible;
     private List<Transaccion> historialTransacciones;
 
-    public TarjetaCredito(String numero, String titular, String fechaVencimiento, String codigoSeguridad, float saldoDisponible) {
-        this.numero = numero;
-        this.titular = titular;
-        this.fechaVencimiento = fechaVencimiento;
-        this.codigoSeguridad = codigoSeguridad;
-        this.saldoDisponible = saldoDisponible;
-        this.idCliente = asignarIdCliente();
-    }
+  
 
     public TarjetaCredito(int idCliente, String numero, String titular, String fechaVencimiento, String codigoSeguridad, float saldoDisponible) {
         this.idCliente = asignarIdCliente();
